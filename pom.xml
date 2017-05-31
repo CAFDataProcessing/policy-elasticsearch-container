@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    Copyright 2015-2017 Hewlett Packard Enterprise Development LP.
+
+    Licensed under the Apache License, Version 2.0 (the "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
+
+         http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+
+-->
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.github.cafdataprocessing</groupId>
+    <artifactId>policy-elasticsearch-container</artifactId>
+    <version>1.0.0-SNAPSHOT</version>
+    <packaging>pom</packaging>
+
+    <parent>
+        <groupId>com.github.cafapi</groupId>
+        <artifactId>caf-common</artifactId>
+        <version>1.11.0-SNAPSHOT</version>
+        <relativePath />
+    </parent>
+
+    <name>Policy Elasticsearch Container</name>
+    <description>
+         Builds a Docker container containing Elasticsearch configured to work with a core policy instance.
+    </description>
+    <url>https://cafdataprocessing.github.io/data-processing-service</url>
+
+    <licenses>
+        <license>
+            <name>Apache License, Version 2.0</name>
+            <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+        </license>
+    </licenses>
+
+    <developers>
+        <developer>
+            <id>andyreidz</id>
+            <name>Andy Reid</name>
+            <email>andrew.reid@hpe.com</email>
+        </developer>
+        <developer>
+            <id>dermot-hardy</id>
+            <name>Dermot Hardy</name>
+            <email>dermot.hardy@hpe.com</email>
+        </developer>
+        <developer>
+            <id>krzysztof-ploch</id>
+            <name>Krzysztof Ploch</name>
+            <email>krzysztof.ploch@hpe.com</email>
+        </developer>
+        <developer>
+            <id>michael-mcalynn</id>
+            <name>Michael McAlynn</name>
+            <email>michael.mcalynn@hpe.com</email>
+        </developer>
+        <developer>
+            <id>pcrookshpe</id>
+            <name>Philip Crooks</name>
+            <email>philip.crooks@hpe.com</email>
+        </developer>
+    </developers>
+
+    <properties>
+        <caf.policy.elasticsearch.container.name>cafinternal/prereleases:policy-elasticsearch-base-${project.version}</caf.policy.elasticsearch.container.name>
+        <elasticsearch-version>2.3.3</elasticsearch-version>
+        <fileSet.outputDirectory>elasticsearchConfig</fileSet.outputDirectory>
+    </properties>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>io.fabric8</groupId>
+                <artifactId>docker-maven-plugin</artifactId>
+                <version>${fabric8.docker.maven.version}</version>
+                <executions>
+                    <execution>
+                        <id>start</id>
+                        <phase>pre-integration-test</phase>
+                        <goals>
+                            <goal>build</goal>
+                            <goal>start</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>stop</id>
+                        <phase>post-integration-test</phase>
+                        <goals>
+                            <goal>stop</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>upload-docker-container</id>
+                        <phase>deploy</phase>
+                        <goals>
+                            <goal>push</goal>
+                        </goals>
+                        <configuration>
+                            <filter>elasticsearch</filter>
+                        </configuration>
+                    </execution>
+                </executions>
+                <configuration>
+                    <verbose>true</verbose>
+                    <watchInterval>500</watchInterval>
+                    <logDate>default</logDate>
+                    <autoPull>always</autoPull>
+                    <images>
+                        <image>
+                            <alias>elasticsearch</alias>
+                            <name>${caf.policy.elasticsearch.container.name}</name>
+                            <build>
+                                <from>java:8</from>
+                                <nocache>true</nocache>
+                                <labels>
+                                    <Build.Number>${project.version}</Build.Number>
+                                    <Build.Date>${maven.build.timestamp}</Build.Date>
+                                    <Git.Branch>${git.branch}</Git.Branch>
+                                    <Git.Commit>${git.revision}</Git.Commit>
+                                </labels>
+                                <optimise>true</optimise>
+                                <runCmds>
+                                    <runcmd>cd /opt</runcmd>
+                                    <runcmd>wget https://download.elastic.co/elasticsearch/release/org/elasticsearch/distribution/deb/elasticsearch/${elasticsearch-version}/elasticsearch-${elasticsearch-version}.deb</runcmd>
+                                    <runcmd>dpkg -i elasticsearch-${elasticsearch-version}.deb</runcmd>
+                                    <runcmd>update-rc.d elasticsearch defaults 95 10</runcmd>
+                                    <runcmd>/usr/share/elasticsearch/bin/plugin install analysis-icu</runcmd>
+                                </runCmds>
+                                <assembly>
+                                    <basedir>/opt</basedir>
+                                    <mode>tar</mode>
+                                    <inline>
+                                        <files>
+                                            <file>
+                                                <source>configureElasticsearch.sh</source>
+                                                <outputDirectory>${fileSet.outputDirectory}</outputDirectory>
+                                                <fileMode>0755</fileMode>
+                                                <lineEnding>unix</lineEnding>
+                                            </file>
+                                            <file>
+                                                <source>
+                                                    ${pom.basedir}/DefaultConfigs/elasticsearch.yml
+                                                </source>
+                                                <outputDirectory>${fileSet.outputDirectory}</outputDirectory>
+                                                <lineEnding>unix</lineEnding>
+                                            </file>
+                                            <file>
+                                                <source>
+                                                    ${pom.basedir}/DefaultConfigs/logging.yml
+                                                </source>
+                                                <outputDirectory>${fileSet.outputDirectory}</outputDirectory>
+                                                <lineEnding>unix</lineEnding>
+                                            </file>
+                                        </files>
+                                    </inline>
+                                </assembly>
+                            </build>
+                        </image>
+                    </images>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
+    <scm>
+        <connection>scm:git:https://github.hpe.com/caf-staging/policy-elasticsearch-container.git</connection>
+        <developerConnection>scm:git:https://github.hpe.com/caf-staging/policy-elasticsearch-container.git</developerConnection>
+        <url>https://github.hpe.com/caf-staging/policy-elasticsearch-container.git</url>
+    </scm>
+</project>
