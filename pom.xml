@@ -176,8 +176,8 @@
     </build>
 
     <scm>
-        <connection>scm:git:https://github.hpe.com/caf-staging/policy-elasticsearch-container.git</connection>
-        <developerConnection>scm:git:https://github.hpe.com/caf-staging/policy-elasticsearch-container.git</developerConnection>
-        <url>https://github.hpe.com/caf-staging/policy-elasticsearch-container.git</url>
+        <connection>scm:git:https://github.com/CAFDataProcessing/policy-elasticsearch-container.git</connection>
+        <developerConnection>scm:git:https://github.com/CAFDataProcessing/policy-elasticsearch-container.git</developerConnection>
+        <url>https://github.com/CAFDataProcessing/policy-elasticsearch-container.git</url>
     </scm>
 </project>
