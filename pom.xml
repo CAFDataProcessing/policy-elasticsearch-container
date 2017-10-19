@@ -80,9 +80,11 @@
     </developers>
 
     <properties>
-        <caf.policy.elasticsearch.container.name>cafinternal/prereleases:policy-elasticsearch-base-${project.version}</caf.policy.elasticsearch.container.name>
         <elasticsearch-version>2.3.3</elasticsearch-version>
         <fileSet.outputDirectory>elasticsearchConfig</fileSet.outputDirectory>
+        <dockerHubOrganization>cafdataprocessing</dockerHubOrganization>
+        <dockerCafDataProcessingOrg>${dockerImagePrefix}${dockerHubOrganization}${dockerOrgSeperator}</dockerCafDataProcessingOrg>
+        <dockerProjectVersion>${dockerVersionSeperator}${project.version}</dockerProjectVersion>
     </properties>
 
     <build>
@@ -126,7 +128,7 @@
                     <images>
                         <image>
                             <alias>elasticsearch</alias>
-                            <name>${caf.policy.elasticsearch.container.name}</name>
+                            <name>${dockerCafDataProcessingOrg}policy-elasticsearch-container${dockerProjectVersion}</name>
                             <build>
                                 <from>java:8</from>
                                 <nocache>true</nocache>
