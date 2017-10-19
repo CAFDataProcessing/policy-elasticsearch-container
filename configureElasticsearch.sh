@@ -39,7 +39,7 @@ function get_env_var() {
    local variableName="${1:-}" ; shift
 
    # helpful debug.
-   # echo 'requesting environment variable name:' $variableName   
+   # log 'requesting environment variable name:' $variableName   
    # perl -le 'print $ENV{'$variableName'}';
    
    result=$(perl -le 'print $ENV{"'$variableName'"};')
@@ -54,9 +54,9 @@ function set_elasticsearch_config_file_location_if_mounted(){
   if [ -e "/mnt/mesos/sandbox/elasticsearch.yml" ]
   then
     elasticsearchConfigFile="/mnt/mesos/sandbox/elasticsearch.yml"
-    echo "Detected mesos Elasticsearch config location: " $elasticsearchConfigFile
+    log "Detected mesos Elasticsearch config location: " $elasticsearchConfigFile
   else
-    echo "Uses default Elasticsearch config location: " $elasticsearchConfigFile
+    log "Uses default Elasticsearch config location: " $elasticsearchConfigFile
   fi
 }
 
@@ -76,7 +76,7 @@ function set_elasticsearch_config_file_location(){
 
         if [ -e "$result" ]
         then
-            echo "Detected Elasticsearch config file location as: " $result
+            log "Detected Elasticsearch config file location as: " $result
             elasticsearchConfigFile="$result"
             return;
         fi
@@ -95,9 +95,9 @@ function set_elasticsearch_logging_file_location_if_mounted(){
   if [ -e "/mnt/mesos/sandbox/logging.yml" ]
   then
     elasticsearchLoggingFile="/mnt/mesos/sandbox/logging.yml"
-    echo "Detected mesos Elasticsearch logging file location: " $elasticsearchLoggingFile
+    log "Detected mesos Elasticsearch logging file location: " $elasticsearchLoggingFile
   else
-    echo "Uses default Elasticsearch logging file location: " $elasticsearchLoggingFile
+    log "Uses default Elasticsearch logging file location: " $elasticsearchLoggingFile
   fi
 }
 
@@ -117,7 +117,7 @@ function set_elasticsearch_logging_file_location(){
 
         if [ -e "$result" ]
         then
-            echo "Detected Elasticsearch logging file location as: " $result
+            log "Detected Elasticsearch logging file location as: " $result
             elasticsearchLoggingFile="$result"
             return;
         fi
@@ -160,6 +160,12 @@ function replace_elasticsearch_logging_file(){
     mv -f ${elasticsearchLoggingFile} /etc/elasticsearch/logging.yml
 }
 
+####################################################
+# Prefix echo statements with script identifier
+####################################################
+function log() {
+	echo "configureElasticsearch.sh: $1"
+}
 
 ####################################################
 ####################################################
