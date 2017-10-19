@@ -164,7 +164,7 @@ function replace_elasticsearch_logging_file(){
 # Prefix echo statements with script identifier
 ####################################################
 function log() {
-	echo "configureElasticsearch.sh: $1"
+	echo "configureElasticsearch.sh: $@"
 }
 
 ####################################################
