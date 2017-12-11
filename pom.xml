@@ -130,7 +130,7 @@
                             <alias>elasticsearch</alias>
                             <name>${dockerCafDataProcessingOrg}policy-elasticsearch-container${dockerProjectVersion}</name>
                             <build>
-                                <from>java:8</from>
+                                <from>cafapi/opensuse-jre8:1.2</from>
                                 <nocache>true</nocache>
                                 <labels>
                                     <Build.Number>${project.version}</Build.Number>
