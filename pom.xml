@@ -142,9 +142,9 @@
                                 <runCmds>
                                     <runcmd>zypper -n install wget dpkg</runcmd>
                                     <runcmd>cd /opt</runcmd>
-                                    <runcmd>wget https://download.elastic.co/elasticsearch/release/org/elasticsearch/distribution/deb/elasticsearch/${elasticsearch-version}/elasticsearch-${elasticsearch-version}.deb</runcmd>
-                                    <runcmd>dpkg -i elasticsearch-${elasticsearch-version}.deb</runcmd>
-                                    <runcmd>chkconfig --set elasticsearch defaults 95 10</runcmd>
+                                    <runcmd>wget https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-${elasticsearch-version}.rpm</runcmd>
+                                    <runcmd>rpm --install elasticsearch-${elasticsearch-version}.rpm</runcmd>
+                                    <runcmd>chkconfig --add elasticsearch</runcmd>
                                     <runcmd>/usr/share/elasticsearch/bin/plugin install analysis-icu</runcmd>
                                 </runCmds>
                                 <assembly>
