@@ -140,6 +140,7 @@
                                 </labels>
                                 <optimise>true</optimise>
                                 <runCmds>
+                                    <runcmd>zypper -n install wget dpkg</runcmd>
                                     <runcmd>cd /opt</runcmd>
                                     <runcmd>wget https://download.elastic.co/elasticsearch/release/org/elasticsearch/distribution/deb/elasticsearch/${elasticsearch-version}/elasticsearch-${elasticsearch-version}.deb</runcmd>
                                     <runcmd>dpkg -i elasticsearch-${elasticsearch-version}.deb</runcmd>
