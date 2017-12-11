@@ -144,7 +144,7 @@
                                     <runcmd>cd /opt</runcmd>
                                     <runcmd>wget https://download.elastic.co/elasticsearch/release/org/elasticsearch/distribution/deb/elasticsearch/${elasticsearch-version}/elasticsearch-${elasticsearch-version}.deb</runcmd>
                                     <runcmd>dpkg -i elasticsearch-${elasticsearch-version}.deb</runcmd>
-                                    <runcmd>update-rc.d elasticsearch defaults 95 10</runcmd>
+                                    <runcmd>chkconfig --set elasticsearch defaults 95 10</runcmd>
                                     <runcmd>/usr/share/elasticsearch/bin/plugin install analysis-icu</runcmd>
                                 </runCmds>
                                 <assembly>
