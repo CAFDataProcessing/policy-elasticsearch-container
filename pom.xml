@@ -142,7 +142,7 @@
                                 <runCmds>
                                     <runcmd>zypper -n install which hostname</runcmd>
                                     <runcmd>cd /opt</runcmd>
-                                    <runcmd>curl -O https://download.elastic.co/elasticsearch/release/org/elasticsearch/distribution/rpm/elasticsearch/{elasticsearch-version}/elasticsearch-{elasticsearch-version}.rpm</runcmd>
+                                    <runcmd>curl -O https://download.elastic.co/elasticsearch/release/org/elasticsearch/distribution/rpm/elasticsearch/${elasticsearch-version}/elasticsearch-${elasticsearch-version}.rpm</runcmd>
                                     <runcmd>rpm --install elasticsearch-${elasticsearch-version}.rpm</runcmd>
                                     <runcmd>/usr/share/elasticsearch/bin/plugin install analysis-icu</runcmd>
                                 </runCmds>
