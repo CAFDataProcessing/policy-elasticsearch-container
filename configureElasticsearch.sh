@@ -147,7 +147,7 @@ function configure_elasticsearch_user_for_memlock(){
 function replace_elasticsearch_config_file(){
 
     set_elasticsearch_config_file_location
-    mv -f ${elasticsearchConfigFile} /etc/elasticsearch/elasticsearch.yml
+    mv -f ${elasticsearchConfigFile} /opt/elasticsearch/config/elasticsearch.yml
 }
 
 
@@ -157,7 +157,7 @@ function replace_elasticsearch_config_file(){
 function replace_elasticsearch_logging_file(){
 
     set_elasticsearch_logging_file_location
-    mv -f ${elasticsearchLoggingFile} /etc/elasticsearch/logging.yml
+    mv -f ${elasticsearchLoggingFile} /opt/elasticsearch/config/logging.yml
 }
 
 ####################################################
