@@ -80,7 +80,6 @@
     </developers>
 
     <properties>
-        <elasticsearch-version>2.3.3</elasticsearch-version>
         <fileSet.outputDirectory>elasticsearchConfig</fileSet.outputDirectory>
         <dockerHubOrganization>cafdataprocessing</dockerHubOrganization>
         <dockerCafDataProcessingOrg>${dockerImagePrefix}${dockerHubOrganization}${dockerOrgSeperator}</dockerCafDataProcessingOrg>
@@ -130,7 +129,7 @@
                             <alias>elasticsearch</alias>
                             <name>${dockerCafDataProcessingOrg}policy-elasticsearch-container${dockerProjectVersion}</name>
                             <build>
-                                <from>cafapi/opensuse-jre8:1.2</from>
+                                <from>cafinternal/prereleases:opensuse-elasticsearch2-1.0.0-SNAPSHOT</from>
                                 <nocache>true</nocache>
                                 <labels>
                                     <Build.Number>${project.version}</Build.Number>
@@ -139,13 +138,6 @@
                                     <Git.Commit>${git.revision}</Git.Commit>
                                 </labels>
                                 <optimise>true</optimise>
-                                <runCmds>
-                                    <runcmd>zypper -n install which hostname</runcmd>
-                                    <runcmd>cd /opt</runcmd>
-                                    <runcmd>curl -O https://download.elastic.co/elasticsearch/release/org/elasticsearch/distribution/rpm/elasticsearch/${elasticsearch-version}/elasticsearch-${elasticsearch-version}.rpm</runcmd>
-                                    <runcmd>rpm --install elasticsearch-${elasticsearch-version}.rpm</runcmd>
-                                    <runcmd>/usr/share/elasticsearch/bin/plugin install analysis-icu</runcmd>
-                                </runCmds>
                                 <assembly>
                                     <basedir>/opt</basedir>
                                     <mode>tar</mode>
