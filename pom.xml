@@ -23,13 +23,13 @@
 
     <groupId>com.github.cafdataprocessing</groupId>
     <artifactId>policy-elasticsearch-container</artifactId>
-    <version>1.2.0-SNAPSHOT</version>
+    <version>2.0.0-SNAPSHOT</version>
     <packaging>pom</packaging>
 
     <parent>
         <groupId>com.github.cafapi</groupId>
         <artifactId>caf-common</artifactId>
-        <version>1.11.0-218</version>
+        <version>1.15.0-1</version>
         <relativePath />
     </parent>
 
@@ -80,7 +80,6 @@
     </developers>
 
     <properties>
-        <elasticsearch-version>2.3.3</elasticsearch-version>
         <fileSet.outputDirectory>elasticsearchConfig</fileSet.outputDirectory>
         <dockerHubOrganization>cafdataprocessing</dockerHubOrganization>
         <dockerCafDataProcessingOrg>${dockerImagePrefix}${dockerHubOrganization}${dockerOrgSeperator}</dockerCafDataProcessingOrg>
@@ -130,7 +129,7 @@
                             <alias>elasticsearch</alias>
                             <name>${dockerCafDataProcessingOrg}policy-elasticsearch-container${dockerProjectVersion}</name>
                             <build>
-                                <from>java:8</from>
+                                <from>cafinternal/prereleases:opensuse-elasticsearch2-1.0.0-SNAPSHOT</from>
                                 <nocache>true</nocache>
                                 <labels>
                                     <Build.Number>${project.version}</Build.Number>
@@ -139,13 +138,6 @@
                                     <Git.Commit>${git.revision}</Git.Commit>
                                 </labels>
                                 <optimise>true</optimise>
-                                <runCmds>
-                                    <runcmd>cd /opt</runcmd>
-                                    <runcmd>wget https://download.elastic.co/elasticsearch/release/org/elasticsearch/distribution/deb/elasticsearch/${elasticsearch-version}/elasticsearch-${elasticsearch-version}.deb</runcmd>
-                                    <runcmd>dpkg -i elasticsearch-${elasticsearch-version}.deb</runcmd>
-                                    <runcmd>update-rc.d elasticsearch defaults 95 10</runcmd>
-                                    <runcmd>/usr/share/elasticsearch/bin/plugin install analysis-icu</runcmd>
-                                </runCmds>
                                 <assembly>
                                     <basedir>/opt</basedir>
                                     <mode>tar</mode>
