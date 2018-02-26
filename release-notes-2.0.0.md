@@ -1,10 +1,9 @@
-!not-ready-for-release!
 
 #### Version Number
 ${version-number}
 
 #### New Features
-
+- [SCMOD-3246](https://jira.autonomy.com/browse/SCMOD-3246): The base image has been updated to use elasticsearch 2.4.6
 #### Known Issues
 
 #### Breaking Change
