@@ -3,6 +3,6 @@
 ${version-number}
 
 #### New Features
-- Updated ElasticSearch Settig from bootstrap.mlockall to bootstrap.memory_lock 
+- Updated ElasticSearch Setting from bootstrap.mlockall to bootstrap.memory_lock 
 
 #### Known Issues
