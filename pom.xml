@@ -129,7 +129,7 @@
                             <alias>elasticsearch</alias>
                             <name>${dockerCafDataProcessingOrg}policy-elasticsearch-container${dockerProjectVersion}</name>
                             <build>
-                                <from>cafapi/opensuse-elasticsearch2:1.0</from>
+                                <from>cafapi/opensuse-elasticsearch2:1</from>
                                 <nocache>true</nocache>
                                 <labels>
                                     <Build.Number>${project.version}</Build.Number>
