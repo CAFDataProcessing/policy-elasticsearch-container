@@ -134,6 +134,7 @@
                                 <labels>
                                     <Build.Number>${project.version}</Build.Number>
                                     <Build.Date>${maven.build.timestamp}</Build.Date>
+                                    <Git.Repo>${project.scm.url}</Git.Repo>
                                     <Git.Branch>${git.branch}</Git.Branch>
                                     <Git.Commit>${git.revision}</Git.Commit>
                                 </labels>
@@ -177,6 +178,6 @@
     <scm>
         <connection>scm:git:https://github.com/CAFDataProcessing/policy-elasticsearch-container.git</connection>
         <developerConnection>scm:git:https://github.com/CAFDataProcessing/policy-elasticsearch-container.git</developerConnection>
-        <url>https://github.com/CAFDataProcessing/policy-elasticsearch-container.git</url>
+        <url>https://github.com/CAFDataProcessing/policy-elasticsearch-container</url>
     </scm>
 </project>
