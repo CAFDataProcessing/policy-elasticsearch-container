@@ -138,7 +138,7 @@
                                 </labels>
                                 <optimise>true</optimise>
                                 <env>
-                                    <!--to run in dev mode and avoid exception thrown in prod mode due to not set vm.max_map_count to 262144-->
+                                    <!--Variable to configure elasticsearch as single-node and development mode-->
                                     <!--https://www.elastic.co/guide/en/elasticsearch/reference/6.3/bootstrap-checks.html#_development_vs_production_mode-->
                                     <discovery.type>single-node</discovery.type>
                                 </env>
