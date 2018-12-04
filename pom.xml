@@ -23,7 +23,7 @@
 
     <groupId>com.github.cafdataprocessing</groupId>
     <artifactId>policy-elasticsearch-container</artifactId>
-    <version>3.0.0-SNAPSHOT</version>
+    <version>3.0.0-168</version>
     <packaging>pom</packaging>
 
     <parent>
